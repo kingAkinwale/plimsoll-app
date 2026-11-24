@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { config, explorer } from "@/lib/config";
+import { ThemeToggle } from "./ThemeToggle";
 import { PlimsollMark } from "./ui";
 
 const NAV = [
@@ -52,17 +53,20 @@ export function Header() {
           Plimsoll
         </Link>
         <span className="net-pill">{config.networkName}</span>
-        <button
-          ref={button}
-          type="button"
-          className="nav-toggle secondary"
-          aria-expanded={open}
-          aria-controls="site-nav"
-          onClick={() => setOpen((o) => !o)}
-        >
-          {open ? "Close" : "Menu"}
-          <span className="sr-only"> navigation</span>
-        </button>
+        <div className="header-actions">
+          <ThemeToggle />
+          <button
+            ref={button}
+            type="button"
+            className="nav-toggle secondary"
+            aria-expanded={open}
+            aria-controls="site-nav"
+            onClick={() => setOpen((o) => !o)}
+          >
+            {open ? "Close" : "Menu"}
+            <span className="sr-only"> navigation</span>
+          </button>
+        </div>
         <nav
           id="site-nav"
           ref={nav}
