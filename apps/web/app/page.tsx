@@ -7,6 +7,16 @@ import { Skeleton, nowSecs } from "@/components/ui";
 import { config } from "@/lib/config";
 import { loadAssets, type AssetView } from "@/lib/data";
 
+export function ChainFallbackNotice({ networkName }: { networkName?: string }) {
+  const net = networkName ?? config.networkName;
+  return (
+    <div className="notice notice-warn mt" role="status" data-testid="chain-fallback-notice">
+      Reading directly from on-chain storage on {net}. This fallback list may not include every
+      listed asset (may be incomplete).
+    </div>
+  );
+}
+
 export default function Home() {
   const [assets, setAssets] = useState<AssetView[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -53,6 +63,8 @@ export default function Home() {
               : null}
         </span>
       </div>
+
+      {source === "chain" ? <ChainFallbackNotice /> : null}
 
       {error ? (
         <p className="notice notice-bad mt" role="alert">
